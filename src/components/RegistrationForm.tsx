@@ -1,7 +1,8 @@
 import { Button, TextField } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
 import { Form, Formik } from 'formik';
 import React from 'react';
-import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 
 
 interface Values {
@@ -15,6 +16,8 @@ interface Values {
 interface Props {
   onSubmit: (values: Values) => void;
 }
+
+
 
 
 
@@ -32,7 +35,15 @@ export const RegistrationForm: React.FC<Props> = ({onSubmit}) => {
         }}>
         {({values, handleChange, handleBlur}) => (
           <Form>
-            <Box pt = {1}>
+             <Box pt = {5}>
+             <Typography 
+                variant="h2" 
+                component="h2"
+                gutterBottom>
+                Sign up
+             </Typography>
+             </Box>
+            <Box pt = {3}>
               <TextField  
                 required
                 variant="outlined"
@@ -65,6 +76,7 @@ export const RegistrationForm: React.FC<Props> = ({onSubmit}) => {
             <Box pt = {1}>
               <TextField 
                 required
+                type = 'password'
                 variant="outlined"
                 placeholder="password"
                 name="password" 
@@ -75,6 +87,7 @@ export const RegistrationForm: React.FC<Props> = ({onSubmit}) => {
             <Box pt = {1}>
               <TextField 
                 required
+                type = 'password'
                 variant="outlined"
                 placeholder="confirm password"
                 name="confirmPassword" 
@@ -84,6 +97,7 @@ export const RegistrationForm: React.FC<Props> = ({onSubmit}) => {
             /></Box>
             <Box pt = {2}>
               <Button 
+                variant="contained"
                 type="submit"
                 color="primary"
                 >Sign up</Button>

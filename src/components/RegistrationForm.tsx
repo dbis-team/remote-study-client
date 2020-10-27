@@ -4,7 +4,6 @@ import { Form, Formik } from 'formik';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-
 interface Values {
   firstName: string;
   lastName: string;
@@ -16,10 +15,6 @@ interface Values {
 interface Props {
   onSubmit: (values: Values) => void;
 }
-
-
-
-
 
 export const RegistrationForm: React.FC<Props> = ({onSubmit}) => {
   return (

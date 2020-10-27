@@ -1,26 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Navbar } from './components/Navbar';
+import { RegistrationForm } from './components/RegistrationForm';
+import { Footer } from './components/Footer';
+import Box from '@material-ui/core/Box';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+  <Box>
+    <Navbar />
+    <Box style={{ textAlign: "center"}}>
+    <RegistrationForm onSubmit={({email, firstName, lastName, password, confirmPassword}) => {
+        console.log(email, firstName, lastName, password, confirmPassword)
+       }}/>
+    <Footer />
+    </Box>
+  </Box>
+  
+  )
+};
 
 export default App;

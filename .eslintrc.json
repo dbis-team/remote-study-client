@@ -55,6 +55,7 @@
         "react/jsx-filename-extension": [1, { "extensions": [".jsx", ".tsx"] }],
         "import/prefer-default-export": "off",
         "import/extensions": "off",
-        "import/no-unresolved": "off"
+        "import/no-unresolved": "off",
+        "import/no-extraneous-dependencies": "off"
     }
 }

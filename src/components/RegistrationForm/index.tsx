@@ -25,9 +25,7 @@ export const RegistrationForm: React.FC<Props> = ({ onSubmit }) => (
       password: '',
       confirmPassword: '',
     }}
-    onSubmit={(values) => {
-      onSubmit(values);
-    }}
+    onSubmit={onSubmit}
   >
     {({ values, handleChange, handleBlur }) => (
       <Form>

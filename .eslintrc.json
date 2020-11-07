@@ -1,0 +1,60 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+		"serviceworker": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "airbnb"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module",
+        "project": "./tsconfig.json",
+		"tsconfigRootDir": "./"
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint",
+        "react-hooks"
+    ],
+    "rules": {
+		"no-console": ["error", { "allow": ["warn", "error", "info"] }],
+		"max-len": [
+			"error",
+			{
+				"code": 140,
+				"ignoreUrls": true,
+				"ignorePattern": "^import\\s.+\\sfrom\\s.+;$"
+			}
+        ],
+        "no-unused-expressions": "warn",
+		"jsx-no-lambda": "off",
+		"no-case-declarations": "off",
+		"no-mixed-spaces-and-tabs": "off",
+		"no-prototype-builtins": "off",
+		"require-atomic-updates": "off",
+		"newline-before-return": "warn",
+		"curly": "warn",
+		"@typescript-eslint/no-useless-constructor": "error",
+		"no-unused-vars": "off",
+		"@typescript-eslint/no-unused-vars": "warn",
+		"no-empty-function": "off",
+		"@typescript-eslint/no-empty-function": "error",
+		"semi": "off",
+		"@typescript-eslint/semi": ["warn"],
+		"react/prop-types": "off",
+		"react/display-name": "off",
+		"react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        "react/jsx-filename-extension": [1, { "extensions": [".jsx", ".tsx"] }],
+        "import/prefer-default-export": "off",
+        "import/extensions": "off",
+        "import/no-unresolved": "off"
+    }
+}

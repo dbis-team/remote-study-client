@@ -8,21 +8,30 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 import { useStyles } from './styles';
 
-export const Navbar: React.FunctionComponent = () => {
+export interface INavbarProps {
+  showBurgerButton?: boolean;
+}
+
+export const Navbar: React.FC<INavbarProps> = ({ showBurgerButton }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
+          {
+            showBurgerButton
+            && (
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="open drawer"
+            >
+              <MenuIcon />
+            </IconButton>
+            )
+          }
           <Typography className={classes.title} variant="h6" noWrap>
             Educational platform
           </Typography>

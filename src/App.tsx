@@ -1,16 +1,20 @@
 import React from 'react';
-import Box from '@material-ui/core/Box';
+import { connect } from 'react-redux';
 
-import { RootRouter } from './routers';
-import { Navbar } from './components/Navbar';
-import { Footer } from './components/Footer';
+import AuthenticatedAppTemplate from 'templates/AuthenticatedAppTemplate';
+import UnAuthenticatedAppTemplate from 'templates/UnAuthenticatedAppTemplate';
+import { IGlobalStore } from 'types/interfaces/IGlobalStore';
 
-const App = () => (
-  <Box>
-    <Navbar />
-    <RootRouter />
-    <Footer />
-  </Box>
-);
+export interface IAppProps {
+  isUserAuthenticated?: boolean;
+}
 
-export default App;
+const App: React.FC<IAppProps> = ({ isUserAuthenticated }) => (isUserAuthenticated
+  ? <AuthenticatedAppTemplate />
+  : <UnAuthenticatedAppTemplate />);
+
+const mapStateToProps = (store: IGlobalStore): IAppProps => ({
+  isUserAuthenticated: store.isUserAuthenticated,
+});
+
+export default connect(mapStateToProps)(App);

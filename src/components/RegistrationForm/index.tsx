@@ -16,7 +16,7 @@ interface Props {
   onSubmit: (values: Values) => void;
 }
 
-export const RegistrationForm: React.FC<Props> = ({ onSubmit }) => (
+const RegistrationForm: React.FC<Props> = ({ onSubmit }) => (
   <Formik
     initialValues={{
       firstName: '',
@@ -108,3 +108,5 @@ export const RegistrationForm: React.FC<Props> = ({ onSubmit }) => (
     )}
   </Formik>
 );
+
+export default RegistrationForm;

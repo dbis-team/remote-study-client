@@ -39,7 +39,7 @@
 		"no-mixed-spaces-and-tabs": "off",
 		"no-prototype-builtins": "off",
 		"require-atomic-updates": "off",
-		"newline-before-return": "warn",
+		"newline-before-return": "off",
 		"curly": "warn",
 		"@typescript-eslint/no-useless-constructor": "error",
 		"no-unused-vars": "off",
@@ -56,6 +56,9 @@
         "import/prefer-default-export": "off",
         "import/extensions": "off",
         "import/no-unresolved": "off",
-        "import/no-extraneous-dependencies": "off"
+        "import/no-extraneous-dependencies": "off",
+        "no-trailing-spaces": "off",
+        "class-methods-use-this": "off",
+        "prefer-template": "off"
     }
 }

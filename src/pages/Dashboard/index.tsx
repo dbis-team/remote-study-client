@@ -1,10 +1,27 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Box, Typography } from '@material-ui/core';
 
-const DashboardPage: React.FC = () => (
-  <Box style={{ textAlign: 'center' }}>
-    <Typography>Coming soon...</Typography>
-  </Box>
-);
+import { actions as userActions } from '../../store/reducers/user';
 
-export { DashboardPage };
+export interface IDashboardPageProps {
+  addUserData: typeof userActions.addUserData;
+}
+
+const DashboardPage: React.FC<IDashboardPageProps> = ({ addUserData }) => {
+  React.useEffect(() => {
+    addUserData({ id: '123' });
+  }, [addUserData]);
+
+  return (
+    <Box style={{ textAlign: 'center' }}>
+      <Typography>Coming soon...</Typography>
+    </Box>
+  );
+};
+
+const mapDispatchToProps = {
+  addUserData: userActions.addUserData,
+};
+
+export default connect(null, mapDispatchToProps)(DashboardPage);

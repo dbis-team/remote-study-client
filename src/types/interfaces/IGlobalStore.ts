@@ -1,4 +1,5 @@
+import { IUserPartialData } from './IUserData';
+
 export interface IGlobalStore {
-    users: string[];
-    lessons: string[];
+    userData: IUserPartialData;
 }

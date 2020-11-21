@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { initialStore } from './initialStore';
-import { reducer as users } from './reducers/user';
+import { reducer as userData } from './reducers/user';
 
 function initStore() {
   const store = configureStore({
     preloadedState: initialStore,
-    reducer: { users },
+    reducer: { userData },
   });
 
   return store;

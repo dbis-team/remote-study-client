@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import * as routes from 'constants/routes';
 
 import { RegistrationPage } from 'pages/Registration';
-import { DashboardPage } from 'pages/Dashboard';
+import DashboardPage from 'pages/Dashboard';
 
 const RootRouter: React.FC = () => (
   <Switch>

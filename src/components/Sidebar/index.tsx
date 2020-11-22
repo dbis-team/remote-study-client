@@ -35,7 +35,7 @@ export const Sidebar: React.FC<ISidebarProps> = ({ showSideBar, items }) => {
       <Box pt={8}>
         <List>
           {items.map((item) => (
-            <ListItem button>
+            <ListItem key={item.path} button>
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.title} />
             </ListItem>

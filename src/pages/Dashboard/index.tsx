@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Box, Typography } from '@material-ui/core';
 
-import { actions as userActions } from '../../store/reducers/user';
+import { actions as userActions } from 'store/reducers/user';
+import { UserApiDomainService } from 'services/api/domains/UserApiService';
 
 export interface IDashboardPageProps {
   addUserData: typeof userActions.addUserData;
@@ -10,7 +11,17 @@ export interface IDashboardPageProps {
 
 const DashboardPage: React.FC<IDashboardPageProps> = ({ addUserData }) => {
   React.useEffect(() => {
-    addUserData({ id: '123' });
+    /**
+     * It's just tests of API and redux
+     */
+    const userApiService = new UserApiDomainService();
+
+    userApiService.getUsers()
+      .then((users) => (users.isLeft()
+        ? console.error(users.getLeft())
+        : console.info(users.getRight())));
+
+    addUserData({ Id: '123' });
   }, [addUserData]);
 
   return (

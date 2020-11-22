@@ -1,10 +1,14 @@
 import {
   createStyles, fade, makeStyles, Theme,
 } from '@material-ui/core/styles';
+import { ImportantDevices } from '@material-ui/icons';
 
 export const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
     flexGrow: 1,
+    overflow: 'auto',
+    position: 'fixed',
+    zIndex: theme.zIndex.drawer + 1,
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -29,6 +33,9 @@ export const useStyles = makeStyles((theme: Theme) => createStyles({
       marginLeft: theme.spacing(1),
       width: 'auto',
     },
+  },
+  hide: {
+    display: 'none',
   },
   searchIcon: {
     padding: theme.spacing(0, 2),

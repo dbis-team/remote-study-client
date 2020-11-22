@@ -7,6 +7,7 @@ import { IGlobalStore } from 'types/interfaces/IGlobalStore';
 
 export interface IAppProps {
   isUserAuthenticated?: boolean;
+  isBurgerShow?: boolean;
 }
 
 const App: React.FC<IAppProps> = ({ isUserAuthenticated }) => (isUserAuthenticated

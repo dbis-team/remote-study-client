@@ -1,7 +1,6 @@
 import {
-  createStyles, fade, makeStyles, Theme,
+  createStyles, fade, makeStyles, Theme, 
 } from '@material-ui/core/styles';
-import { ImportantDevices } from '@material-ui/icons';
 
 export const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {

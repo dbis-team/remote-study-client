@@ -22,7 +22,7 @@ export const Navbar: React.FC<INavbarProps> = ({ showBurgerButton, isSidebarShow
     if (showSidebar) {
       return isSidebarShown ? showSidebar(false) : showSidebar(true);
     } 
-  }
+  };
 
   return (
     <AppBar
@@ -40,8 +40,8 @@ export const Navbar: React.FC<INavbarProps> = ({ showBurgerButton, isSidebarShow
               aria-label="open drawer"
               onClick={handleMenuButton}
             > 
-             { isSidebarShown ? <CloseIcon /> : <MenuIcon />}
-             </IconButton>
+              { isSidebarShown ? <CloseIcon /> : <MenuIcon />}
+            </IconButton>
             )
           }
         <Typography className={classes.title} variant="h6" noWrap>

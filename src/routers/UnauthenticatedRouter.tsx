@@ -14,7 +14,7 @@ const UnauthenticatedRouter: React.FC = () => (
     <Route path={routes.LOGIN_PATH}>
       <LoginPage />
     </Route>
-    <Route path={'*'}>
+    <Route path="*">
       <Redirect to={routes.REGISTRATION_PATH} />
     </Route>
   </Switch>

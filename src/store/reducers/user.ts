@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IUserPartialData } from 'types/interfaces/IUserData';
+import { IUserPartialData } from 'types/entities/user/IUserData';
 
 const userSlice = createSlice({
   name: 'userData',

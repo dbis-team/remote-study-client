@@ -52,7 +52,7 @@ class ApiService {
     );
   }
 
-  postJson<T>(path: string, body: any, options: PickedOptions): Promise<Either<IApiError, T>> {
+  postJson<T>(path: string, body: any, options?: PickedOptions): Promise<Either<IApiError, T>> {
     const callOptions: IApiCallOptions = { method: 'POST', body };
 
     return this.callJsonApi<T>(
@@ -61,7 +61,7 @@ class ApiService {
     );
   }
 
-  deleteJson<T>(path: string, options: PickedOptions): Promise<Either<IApiError, T>> {
+  deleteJson<T>(path: string, options?: PickedOptions): Promise<Either<IApiError, T>> {
     const callOptions: IApiCallOptions = { method: 'DELETE' };
 
     return this.callJsonApi<T>(
@@ -70,7 +70,7 @@ class ApiService {
     );
   }
 
-  patchJson<T>(path: string, body: any, options: PickedOptions): Promise<Either<IApiError, T>> {
+  patchJson<T>(path: string, body: any, options?: PickedOptions): Promise<Either<IApiError, T>> {
     const callOptions: IApiCallOptions = { method: 'PATCH', body };
 
     return this.callJsonApi<T>(
@@ -79,7 +79,7 @@ class ApiService {
     );
   }
 
-  putJson<T>(path: string, body: any, options: PickedOptions): Promise<Either<IApiError, T>> {
+  putJson<T>(path: string, body: any, options?: PickedOptions): Promise<Either<IApiError, T>> {
     const callOptions: IApiCallOptions = { method: 'PUT', body };
 
     return this.callJsonApi<T>(

@@ -1,4 +1,4 @@
-import { IUserPartialData } from './IUserData';
+import { IUserPartialData } from '../entities/user/IUserData';
 
 export interface IGlobalStore {
     userData: IUserPartialData;

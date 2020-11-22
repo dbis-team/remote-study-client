@@ -1,15 +1,16 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles({
+export const useStyles = makeStyles((theme: Theme) => ({
   root: {
     display: 'flex',
     justifyContent: 'center',
     margin: 'auto',
-    position: 'absolute',
+    position: 'fixed',
     bottom: 0,
     width: '100%',
     height: 'auto',
     background: '#daddf1',
+    zIndex: theme.zIndex.drawer + 1,
   },
   icon: {
     paddingBottom: '0.9rem',
@@ -19,4 +20,4 @@ export const useStyles = makeStyles({
     paddingTop: '1.2rem',
     color: '#3f51b5',
   },
-});
+}));

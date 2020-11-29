@@ -1,4 +1,4 @@
 export interface ILoginResponsePayload {
-  accessToken: string;
-  username: string;
+  access_token: string;
+  email: string;
 }

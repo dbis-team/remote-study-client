@@ -14,6 +14,15 @@ interface IApiCallOptions {
 type PickedOptions = Pick<IApiCallOptions, 'headers' | 'queryParams'>;
 
 class ApiService {
+  static instance: ApiService;
+
+  static getInstance(): ApiService {
+    if (!ApiService.instance) {
+      ApiService.instance = new ApiService();
+    }
+    return ApiService.instance;
+  }
+
   private apiUrl: string;
 
   constructor(apiUrl?: string) {
@@ -34,7 +43,7 @@ class ApiService {
     const response = await fetch(apiPath, {
       method: options.method,
       headers: options.headers ? { ...headers, ...options.headers } : headers,
-      body: options.body,
+      body: JSON.stringify(options.body),
     });
 
     const body = await response.json();

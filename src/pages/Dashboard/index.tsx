@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Box, Typography } from '@material-ui/core';
 
 import { actions as userActions } from 'store/reducers/user';
-import { UserApiDomainService } from 'services/api/domains/UserApiService';
+import { userApiDomainService } from 'services/api/domains/UserApiService';
 
 export interface IDashboardPageProps {
   addUserData: typeof userActions.addUserData;
@@ -14,9 +14,8 @@ const DashboardPage: React.FC<IDashboardPageProps> = ({ addUserData }) => {
     /**
      * It's just tests of API and redux
      */
-    const userApiService = new UserApiDomainService();
 
-    userApiService.getUsers()
+    userApiDomainService.getUsers()
       .then((users) => (users.isLeft()
         ? console.error(users.getLeft())
         : console.info(users.getRight())));

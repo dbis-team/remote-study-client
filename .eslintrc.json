@@ -60,6 +60,8 @@
         "import/no-extraneous-dependencies": "off",
         "no-trailing-spaces": "off",
         "class-methods-use-this": "off",
-        "prefer-template": "off"
+        "prefer-template": "off",
+        "react/jsx-props-no-spreading": "off",
+        "camelcase": "off"
     }
 }

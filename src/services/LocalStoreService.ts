@@ -1,4 +1,13 @@
 class LocalStoreService {
+  static instance: LocalStoreService;
+
+  static getInstance() {
+    if (!LocalStoreService.instance) {
+      LocalStoreService.instance = new LocalStoreService();
+    }
+    return LocalStoreService.instance;
+  }
+
   add(key: string, value: string) {
     localStorage.setItem(key, value);
   }

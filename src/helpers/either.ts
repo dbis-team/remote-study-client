@@ -110,6 +110,20 @@ class Either<L, R> {
     const isValid = await f(this.value as R);
     return isValid ? Either.right(this.value as R) : Either.left(newLeft);
   }
+
+  public rightSideEffect(f: (right: R) => void): Either<L, R> {
+    if (this.isRight()) {
+      f(this.value as R);
+    }
+    return this;
+  }
+
+  public leftSideEffect(f: (left: L) => void): Either<L, R>  {
+    if (this.isLeft()) {
+      f(this.value as L);
+    }
+    return this;
+  }
 }
 
 export { Either };

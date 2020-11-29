@@ -1,21 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Box, Typography } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 
 import { actions as userActions } from 'store/reducers/user';
-import { userApiDomainService } from 'services/api/domains/UserApiService';
+import { UserApiDomainService } from 'services/api/domains/UserApiService';
+import { Schedule } from 'components/Schedule';
 
-export interface IDashboardPageProps {
+export interface ISchedulePageProps {
   addUserData: typeof userActions.addUserData;
 }
 
-const DashboardPage: React.FC<IDashboardPageProps> = ({ addUserData }) => {
+const ScheduleSetsPage: React.FC<ISchedulePageProps> = ({ addUserData }) => {
   React.useEffect(() => {
     /**
      * It's just tests of API and redux
      */
+    const userApiService = new UserApiDomainService();
 
-    userApiDomainService.getUsers()
+    userApiService.getUsers()
       .then((users) => (users.isLeft()
         ? console.error(users.getLeft())
         : console.info(users.getRight())));
@@ -24,8 +26,8 @@ const DashboardPage: React.FC<IDashboardPageProps> = ({ addUserData }) => {
   }, [addUserData]);
 
   return (
-    <Box style={{ textAlign: 'center' }}>
-      <Typography />
+    <Box>
+      <Schedule />
     </Box>
   );
 };
@@ -34,4 +36,4 @@ const mapDispatchToProps = {
   addUserData: userActions.addUserData,
 };
 
-export default connect(null, mapDispatchToProps)(DashboardPage);
+export default connect(null, mapDispatchToProps)(ScheduleSetsPage);

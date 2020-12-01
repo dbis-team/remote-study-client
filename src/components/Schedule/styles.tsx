@@ -8,4 +8,7 @@ export const useStyles = makeStyles((theme: Theme) => ({
   margin: {
     marginRight: theme.spacing(1),
   },
+  typog: {
+
+  },
 }));

@@ -10,6 +10,7 @@ export const Schedule: React.FunctionComponent = () => {
   return (
     <Box pt={10} textAlign="center">
       <Typography
+        className={classes.typog}
         variant="h2"
         component="h2"
         gutterBottom

@@ -9,7 +9,7 @@ export interface ISchedulePageProps {
   addUserData: typeof userActions.addUserData;
 }
 
-const ScheduleSetsPage: React.FC<ISchedulePageProps> = ({ addUserData }) => (
+const ScheduleSetsPage: React.FC<ISchedulePageProps> = ({ /* addUserData */ }) => (
   <Box>
     <Schedule />
   </Box>

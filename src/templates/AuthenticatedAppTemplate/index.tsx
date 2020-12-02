@@ -38,6 +38,7 @@ const AuthenticatedAppTemplate: React.FC = () => {
     <Box>
       <Navbar
         showBurgerButton
+        showLogoutButton
         showSidebar={setShowSidebar}
         isSidebarShown={showSidebar}
       />

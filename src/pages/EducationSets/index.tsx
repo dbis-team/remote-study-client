@@ -10,7 +10,7 @@ export interface IEducationSetsPageProps {
   addUserData: typeof userActions.addUserData;
 }
 
-const EducationSetsPage: React.FC<IEducationSetsPageProps> = ({ addUserData }) => (
+const EducationSetsPage: React.FC<IEducationSetsPageProps> = ({ /* addUserData */ }) => (
   <Box>
     <EducationSet />
     <EducationSet />

@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { Box } from '@material-ui/core';
 
 import { actions as userActions } from 'store/reducers/user';
-import { EducationSet } from 'components/EducationSet';
-import { AddEducationSet } from 'components/AddEducationSet';
+import { TeacherEducationSet } from 'components/TeacherEducationSet';
 
 export interface IEducationSetsPageProps {
   addUserData: typeof userActions.addUserData;
@@ -12,9 +11,7 @@ export interface IEducationSetsPageProps {
 
 const EducationSetsPage: React.FC<IEducationSetsPageProps> = ({ /* addUserData */ }) => (
   <Box>
-    <EducationSet />
-    <EducationSet />
-    <AddEducationSet />
+    <TeacherEducationSet />
   </Box>
 );
 

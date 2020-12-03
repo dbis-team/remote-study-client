@@ -11,7 +11,7 @@ export const Feed: React.FunctionComponent = () => {
   
   return (
     <Box pt={10} pl={30} pr={14}>
-      <List >
+      <List>
         <List className={classes.root}>
           <Typography 
             className={classes.center}

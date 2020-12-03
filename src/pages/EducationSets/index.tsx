@@ -4,6 +4,7 @@ import { Box } from '@material-ui/core';
 
 import { actions as userActions } from 'store/reducers/user';
 import { TeacherEducationSet } from 'components/TeacherEducationSet';
+import { StudentEducationSet } from 'components/StudentEducationSet';
 
 export interface IEducationSetsPageProps {
   addUserData: typeof userActions.addUserData;
@@ -11,7 +12,7 @@ export interface IEducationSetsPageProps {
 
 const EducationSetsPage: React.FC<IEducationSetsPageProps> = ({ /* addUserData */ }) => (
   <Box>
-    <TeacherEducationSet />
+    <StudentEducationSet />
   </Box>
 );
 

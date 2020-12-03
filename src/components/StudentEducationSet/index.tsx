@@ -4,7 +4,7 @@ import { EducationSet } from 'components/EducationSet';
 import Box from '@material-ui/core/Box';
 import { Feed } from 'components/Feed';
 
-export const TeacherEducationSet: React.FunctionComponent = () => {
+export const StudentEducationSet: React.FunctionComponent = () => {
     const classes = useStyles();
     
     return (

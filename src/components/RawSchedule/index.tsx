@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import { Box } from '@material-ui/core';
 import { useStyles } from './styles';
 
-export const Schedule: React.FunctionComponent = () => {
+export const RawSchedule: React.FunctionComponent = () => {
   const classes = useStyles();
   
   return (

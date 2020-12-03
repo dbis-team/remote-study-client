@@ -15,22 +15,22 @@ const AuthenticatedAppTemplate: React.FC = () => {
     {
       title: 'Students',
       icon: <CallMadeIcon />,
-      path: '#',
+      path: '#1',
     },
     {
       title: 'Teachers',
       icon: <CallMadeIcon />,
-      path: '#',
+      path: '#2',
     },
     {
       title: 'Lessons',
       icon: <CallMadeIcon />,
-      path: '#',
+      path: '#3',
     },
     {
       title: 'Schedule',
       icon: <CallMadeIcon />,
-      path: '#',
+      path: '#4',
     },
   ];
 

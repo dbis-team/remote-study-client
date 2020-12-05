@@ -43,7 +43,7 @@
 		"newline-before-return": "off",
 		"curly": "warn",
 		"@typescript-eslint/no-useless-constructor": "error",
-		"no-unused-vars": "error",
+		"no-unused-vars": "warn",
 		"@typescript-eslint/no-unused-vars": "warn",
 		"no-empty-function": "off",
 		"@typescript-eslint/no-empty-function": "error",
@@ -62,6 +62,8 @@
         "class-methods-use-this": "off",
         "prefer-template": "off",
         "react/jsx-props-no-spreading": "off",
-        "camelcase": "off"
+        "camelcase": "off",
+        "no-empty-pattern": "off",
+        "object-curly-newline": "off"
     }
 }

@@ -24,7 +24,7 @@ const LoginForm: React.FC<Props> = ({ onSubmit }) => (
   >
     {({ values, handleChange, handleBlur }) => (
       <Form>
-        <Box pt={12}>
+        <Box>
           <Typography
             variant="h2"
             component="h2"

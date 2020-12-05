@@ -43,7 +43,9 @@ const AuthenticatedAppTemplate: React.FC = () => {
         isSidebarShown={showSidebar}
       />
       <Sidebar items={sidebarList} showSideBar={showSidebar} />
-      <AuthenticateRouter />
+      <Box pt={12}>
+        <AuthenticateRouter />
+      </Box>
       <Footer />
     </Box>
   );

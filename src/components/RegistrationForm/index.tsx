@@ -3,34 +3,44 @@ import { Button, TextField } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import { Form, Formik } from 'formik';
 import Typography from '@material-ui/core/Typography';
-import * as routes from 'constants/routes';
 
-interface Values {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
+import * as routes from 'constants/routes';
+import { IRegistrationPayload } from 'types/entities/user/IRegistrationPayload';
+import * as Yup from 'yup';
+
+const validationSchema = Yup.object().shape({
+  userName: Yup.string()
+    .min(2, 'Too short!')
+    .max(50, 'Too long')
+    .required('Field is required'),
+  email: Yup.string().email().required('Field is required'),
+  password: Yup.string()
+    .min(6, 'Too short!')
+    .max(20, 'Too long')
+    .required('Field is required'),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password')], 'Passwords must match')
+    .required('Field is required'),
+});
 
 interface Props {
-  onSubmit: (values: Values) => void;
+  onSubmit: (values: IRegistrationPayload) => Promise<void> | void;
 }
 
 const RegistrationForm: React.FC<Props> = ({ onSubmit }) => (
   <Formik
     initialValues={{
-      firstName: '',
-      lastName: '',
+      userName: '',
       email: '',
       password: '',
       confirmPassword: '',
     }}
+    validationSchema={validationSchema}
     onSubmit={onSubmit}
   >
-    {({ values, handleChange, handleBlur }) => (
+    {({ values, handleChange, handleBlur, errors, touched }) => (
       <Form>
-        <Box pt={12}>
+        <Box>
           <Typography
             variant="h2"
             component="h2"
@@ -43,57 +53,54 @@ const RegistrationForm: React.FC<Props> = ({ onSubmit }) => (
           <TextField
             required
             variant="outlined"
-            placeholder="first name"
-            name="firstName"
-            value={values.firstName}
+            placeholder="Name"
+            name="userName"
+            value={values.userName}
             onChange={handleChange}
             onBlur={handleBlur}
+            error={touched.userName && !!errors.userName}
+            helperText={touched.userName && errors.userName}
           />
         </Box>
-        <Box pt={1}>
+        <Box pt={2}>
           <TextField
             required
             variant="outlined"
-            placeholder="last name"
-            name="lastName"
-            value={values.lastName}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </Box>
-        <Box pt={1}>
-          <TextField
-            required
-            variant="outlined"
-            placeholder="email"
+            placeholder="Email"
             name="email"
             value={values.email}
             onChange={handleChange}
             onBlur={handleBlur}
+            error={touched.email && !!errors.email}
+            helperText={touched.email && errors.email}
           />
         </Box>
-        <Box pt={1}>
+        <Box pt={2}>
           <TextField
             required
             type="password"
             variant="outlined"
-            placeholder="password"
+            placeholder="Password"
             name="password"
             value={values.password}
             onChange={handleChange}
             onBlur={handleBlur}
+            error={touched.password && !!errors.password}
+            helperText={touched.password && errors.password}
           />
         </Box>
-        <Box pt={1}>
+        <Box pt={2}>
           <TextField
             required
             type="password"
             variant="outlined"
-            placeholder="confirm password"
+            placeholder="Confirm password"
             name="confirmPassword"
             value={values.confirmPassword}
             onChange={handleChange}
             onBlur={handleBlur}
+            error={touched.confirmPassword && !!errors.confirmPassword}
+            helperText={touched.confirmPassword && errors.confirmPassword}
           />
         </Box>
         <Box pt={2}>

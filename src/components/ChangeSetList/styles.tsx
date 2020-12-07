@@ -1,8 +1,8 @@
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles((theme: Theme) => ({
-    mainlist: {
-        width: "300px",
-        paddingRight: "70px"
-    },
+export const useStyles = makeStyles(() => ({
+  mainlist: {
+    width: '300px',
+    paddingRight: '70px',
+  },
 }));

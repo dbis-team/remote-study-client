@@ -1,9 +1,11 @@
 import React from 'react';
 import List from '@material-ui/core/List';
-import { useStyles } from './styles';
-import { Box, ListItem } from '@material-ui/core';
-import { Collapse, ListItemIcon, ListItemText } from '@material-ui/core';
+import {
+  Box, ListItem, Collapse, ListItemText, 
+} from '@material-ui/core';
+
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
+import { useStyles } from './styles';
 
 export const ChangeSetList: React.FunctionComponent = () => {
   const classes = useStyles();
@@ -20,21 +22,21 @@ export const ChangeSetList: React.FunctionComponent = () => {
           <ListItemText primary="My schedule" />
         </ListItem>
         <ListItem button onClick={handleClick}>
-            <ListItemText primary="Select students schedule" />
-            {open ? <ExpandLess /> : <ExpandMore />}
+          <ListItemText primary="Select students schedule" />
+          {open ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
-            <List component="div">
-              <ListItem button>
-                  <ListItemText primary="KM-73" />
-              </ListItem>
-              <ListItem button>
-                  <ListItemText primary="KM-72" />
-              </ListItem>
-              <ListItem button>
-                  <ListItemText primary="KM-71" />
-              </ListItem>
-            </List>
+          <List component="div">
+            <ListItem button>
+              <ListItemText primary="KM-73" />
+            </ListItem>
+            <ListItem button>
+              <ListItemText primary="KM-72" />
+            </ListItem>
+            <ListItem button>
+              <ListItemText primary="KM-71" />
+            </ListItem>
+          </List>
         </Collapse>
       </List>
     </Box>

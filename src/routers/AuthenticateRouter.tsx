@@ -19,7 +19,7 @@ const AuthenticatedRouter: React.FC = () => (
       <SchedulePage />
     </Route>
     <Route path="*">
-      <Redirect to={routes.SCHEDULE_PATH} />
+      <Redirect to={routes.EDUCATION_SETS_PATH} />
     </Route>
   </Switch>
 );

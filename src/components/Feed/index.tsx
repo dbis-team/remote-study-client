@@ -10,9 +10,8 @@ export const Feed: React.FunctionComponent = () => {
   const classes = useStyles();
   
   return (
-    <Box pt={10}>
+    <Box pt={10} pl={30} pr={14}>
       <List>
-
         <List className={classes.root}>
           <Typography 
             className={classes.center}
@@ -74,7 +73,7 @@ export const Feed: React.FunctionComponent = () => {
                   </Typography>
                   {'  sometextsometextsometextsometextsometextsometextsometext'}
                 </>
-          )}
+             )}
             />
           </ListItem>
         </List>

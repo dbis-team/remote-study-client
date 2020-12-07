@@ -3,15 +3,15 @@ import { connect } from 'react-redux';
 import { Box } from '@material-ui/core';
 
 import { actions as userActions } from 'store/reducers/user';
-import { Schedule } from 'components/Schedule';
+import { TeacherSchedule } from 'components/TeacherSchedule';
 
 export interface ISchedulePageProps {
   addUserData: typeof userActions.addUserData;
 }
 
-const ScheduleSetsPage: React.FC<ISchedulePageProps> = ({ /* addUserData */ }) => (
+const ScheduleSetsPage: React.FC<ISchedulePageProps> = () => (
   <Box>
-    <Schedule />
+    <TeacherSchedule />
   </Box>
 );
 

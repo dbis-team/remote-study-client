@@ -8,7 +8,7 @@ import UnauthenticatedRouter from 'routers/UnauthenticatedRouter';
 const UnauthenticatedAppTemplate: React.FC = () => (
   <Box>
     <Navbar />
-    <Box pt={12}>
+    <Box pt={12} pb={12}>
       <UnauthenticatedRouter />
     </Box>
     <Footer />

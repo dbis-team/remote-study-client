@@ -64,6 +64,10 @@
         "react/jsx-props-no-spreading": "off",
         "camelcase": "off",
         "no-empty-pattern": "off",
-        "object-curly-newline": "off"
+        "object-curly-newline": "off",
+        "react/destructuring-assignment": "off",
+        "function-paren-newline": "off",
+        "implicit-arrow-linebreak": "off",
+        "comma-dangle": "off"
     }
 }

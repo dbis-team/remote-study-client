@@ -4,10 +4,11 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
+
 import { Subject } from 'components/Subject';
 import { useStyles } from './styles';
 
-export const EducationSet: React.FunctionComponent = () => {
+export const EducationSet: React.FC = () => {
   const classes = useStyles();
   
   return (

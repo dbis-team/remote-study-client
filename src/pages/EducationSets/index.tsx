@@ -14,6 +14,8 @@ export interface IEducationSetsPageProps {
 const EducationSetsPage: React.FC<IEducationSetsPageProps> = () => (
   <Box>
     <AdminEducationSet />
+    {/* <StudentEducationSet />
+    <TeacherEducationSet /> */}
   </Box>
 );
 

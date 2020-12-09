@@ -4,6 +4,14 @@ import Box from '@material-ui/core/Box';
 import { Form, Formik } from 'formik';
 import Typography from '@material-ui/core/Typography';
 import * as routes from 'constants/routes';
+import * as Yup from 'yup';
+
+const validationSchema = Yup.object().shape({
+  email: Yup.string().email().required('Field is required'),
+  password: Yup.string()
+  .max(20, 'Too long!')
+  .required('Field is required'),
+});
 
 interface Values {
   email: string;
@@ -20,6 +28,7 @@ const LoginForm: React.FC<Props> = ({ onSubmit }) => (
       email: '',
       password: '',
     }}
+    validationSchema={validationSchema}
     onSubmit={onSubmit}
   >
     {({ values, handleChange, handleBlur }) => (

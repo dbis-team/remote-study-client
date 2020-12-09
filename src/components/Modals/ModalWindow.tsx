@@ -9,6 +9,7 @@ import {
   IconButton,
   Typography,
 } from '@material-ui/core';
+import Box from '@material-ui/core/Box/Box';
 
 export interface ModalWindowPropsInterface {
   isOpen: boolean;
@@ -30,12 +31,16 @@ const DialogTitle = (props: DialogTitleProps) => {
   const { children, onClose } = props;
   return (
     <MuiDialogTitle disableTypography>
-      <Typography variant="h6">{children}</Typography>
-      {onClose ? (
-        <IconButton aria-label="close" onClick={onClose}>
-          <Close />
-        </IconButton>
-      ) : null}
+      <Box display="flex">
+        <Box pt={1} pr={1}>
+          <Typography variant="h6">{children}</Typography>
+        </Box>
+        {onClose ? (
+          <IconButton aria-label="close" onClick={onClose}>
+            <Close />
+          </IconButton>
+        ) : null}
+      </Box>
     </MuiDialogTitle>
   );
 };

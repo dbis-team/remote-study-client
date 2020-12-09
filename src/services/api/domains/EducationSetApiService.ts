@@ -10,6 +10,10 @@ class EducationSetApiDomainService {
   getEducationSet() {
     return ApiService.getInstance().getJson<IEducationSet[]>('/EducationSetContoller');
   };
+
+  deleteEducationSet(id:string) {
+    return ApiService.getInstance().deleteJson<IEducationSet>(`/EducationSetContoller/delete/${id}`)
+  };
 }
 
 const educationSetApiDomainService = new EducationSetApiDomainService();

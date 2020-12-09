@@ -39,7 +39,7 @@ const EducationSetsPage: React.FC<IEducationSetsPageProps> = ({ setAlert }) => {
 
   return (
     <Box>
-      <AdminEducationSet />
+      <AdminEducationSet educationsSets={educationSets} />
       {/* <StudentEducationSet />
       <TeacherEducationSet /> */}
     </Box>

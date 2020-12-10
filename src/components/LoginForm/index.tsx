@@ -9,8 +9,8 @@ import * as Yup from 'yup';
 const validationSchema = Yup.object().shape({
   email: Yup.string().email().required('Field is required'),
   password: Yup.string()
-  .max(20, 'Too long!')
-  .required('Field is required'),
+    .max(20, 'Too long!')
+    .required('Field is required'),
 });
 
 interface Values {

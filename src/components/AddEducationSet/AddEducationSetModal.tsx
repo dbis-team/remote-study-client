@@ -64,8 +64,8 @@ const AddEducationSetModal: React.FC<IAddEducationSetModalProps> = (props) => {
             error={!!formik.touched.name && !!formik.errors.name}
           />
         </Box>
-        <Box>
-          <Button type="submit">save</Button>
+        <Box display="flex" justifyContent="center" pt={1}>
+          <Button type="submit" variant="contained">save</Button>
         </Box>
       </form>
     </ModalWindow>

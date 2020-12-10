@@ -9,4 +9,5 @@ export interface IGlobalStore {
     severity?: FeedbackerSeverity;
     feedbackMessage?: string;
   };
+  isLoading: boolean;
 }

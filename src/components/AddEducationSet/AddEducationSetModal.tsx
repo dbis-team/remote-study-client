@@ -1,37 +1,22 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Button, TextField, Box } from '@material-ui/core';
 import { useFormik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 
-import { educationSetApiDomainService } from 'services/api/domains/EducationSetApiService';
 import { ICreateEducationSet } from 'types/entities/educationSet/ICreateEducationSet';
-import { actions as alertActions } from 'store/sagas/alert/sagaActions';
 import ModalWindow, { ModalWindowPropsInterface } from '../Modals/ModalWindow';
 
+import { useStyles } from './styles';
+
 export interface IAddEducationSetModalProps extends Pick<ModalWindowPropsInterface, 'handleClose' | 'isOpen'> {
-  setAlert: typeof alertActions.setAutoCleaningAlert;
+  onCreateEducationSet: (payload: ICreateEducationSet) => Promise<void>;
 }
 
 const AddEducationSetModal: React.FC<IAddEducationSetModalProps> = (props) => {
+  const styles = useStyles();
+  
   const handleSubmit = async (payload: ICreateEducationSet, helper: FormikHelpers<ICreateEducationSet>) => {
-    const result = await educationSetApiDomainService.createEducationSet(payload);
-
-    result
-      .rightSideEffect(() => {
-        props.setAlert({ 
-          open: true, 
-          severity: 'success', 
-          feedbackMessage: 'Education set created successfully' 
-        });
-      })
-      .leftSideEffect(() => {
-        props.setAlert({ 
-          open: true, 
-          severity: 'error', 
-          feedbackMessage: 'Server error' 
-        });
-      });
+    await props.onCreateEducationSet(payload);
 
     if (props.handleClose) {
       props.handleClose();
@@ -49,10 +34,15 @@ const AddEducationSetModal: React.FC<IAddEducationSetModalProps> = (props) => {
   });
 
   return (
-    <ModalWindow maxWidth="md" title="Add Education Set" {...props}>
+    <ModalWindow 
+      maxWidth="lg" 
+      title="Add Education Set" 
+      {...props}
+    >
       <form onSubmit={formik.handleSubmit}>
         <Box>
           <TextField
+            className={styles.educationSetModal} 
             required
             variant="outlined"
             placeholder="Name"
@@ -64,7 +54,7 @@ const AddEducationSetModal: React.FC<IAddEducationSetModalProps> = (props) => {
             error={!!formik.touched.name && !!formik.errors.name}
           />
         </Box>
-        <Box display="flex" justifyContent="center" pt={1}>
+        <Box display="flex" justifyContent="flex-end" pt={1}>
           <Button type="submit" variant="contained">save</Button>
         </Box>
       </form>
@@ -72,8 +62,5 @@ const AddEducationSetModal: React.FC<IAddEducationSetModalProps> = (props) => {
   );
 };
 
-const mapDispatchToProps = {
-  setAlert: alertActions.setAutoCleaningAlert,
-};
 
-export default connect(null, mapDispatchToProps)(AddEducationSetModal);
+export { AddEducationSetModal };

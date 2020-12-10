@@ -9,4 +9,7 @@ export const useStyles = makeStyles(() => ({
       backgroundColor: purple[700],
     },
   },
+  educationSetModal: {
+    minWidth: 700
+  }
 }));

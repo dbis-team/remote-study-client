@@ -1,16 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Box } from '@material-ui/core';
 
 import { actions as userActions } from 'store/reducers/user';
-// import { TeacherEducationSet } from 'components/TeacherEducationSet';
 import { AdminEducationSet } from 'components/AdminEducationSet';
-import { IEducationSet } from 'types/entities/educationSet/IEducationSet';
-import { ICreateEducationSet } from 'types/entities/educationSet/ICreateEducationSet';
-// import { StudentEducationSet } from 'components/StudentEducationSet';
 
 import { educationSetApiDomainService } from 'services/api/domains/EducationSetApiService';
 import { actions as alertActions } from 'store/sagas/alert/sagaActions';
+import { useLoadData } from 'hooks/loadDataHook';
+import { ICreateEducationSet } from 'types/entities/educationSet/ICreateEducationSet';
 
 export interface IEducationSetsPageProps {
   addUserData: typeof userActions.addUserData;
@@ -18,36 +16,57 @@ export interface IEducationSetsPageProps {
 }
 
 const EducationSetsPage: React.FC<IEducationSetsPageProps> = ({ setAlert }) => {
-  const [educationSets, setEducationSets] = React.useState<IEducationSet[]>([]);
+  const educationSets = useLoadData({
+    task: educationSetApiDomainService.getEducationSet(),
+    onError: (_) => {
+      setAlert({
+        open: true,
+        feedbackMessage: 'Get education sets error',
+        severity: 'error',
+      })
+    }
+  });
 
-  const getEducationSets = async () => {
-    const result = await educationSetApiDomainService.getEducationSet();
-    result
-      .rightSideEffect((sets) => setEducationSets(sets))
+  const deleteEducationSet = async (id: string) => {
+    const res = await educationSetApiDomainService.deleteEducationSet(id);
+    res
+      .rightSideEffect(() => educationSets.refetch())
       .leftSideEffect(() => {
         setAlert({
           open: true,
-          feedbackMessage: 'Get education sets error',
+          feedbackMessage: 'Error during deleting education set',
           severity: 'error',
-        });
-      });
+        })
+      }); 
   };
 
-  useEffect(() => {
-    getEducationSets();
-  }, []);
+  const createEducationSet = async (payload: ICreateEducationSet) => {
+    const res = await educationSetApiDomainService.createEducationSet(payload);
+    res
+      .rightSideEffect(() => educationSets.refetch())
+      .leftSideEffect(() => {
+        setAlert({
+          open: true,
+          feedbackMessage: 'Error during creating education set',
+          severity: 'error',
+        })
+      });
+  }
 
   return (
     <Box>
-      <AdminEducationSet educationsSets={educationSets} />
-      {/* <StudentEducationSet />
-      <TeacherEducationSet /> */}
+      <AdminEducationSet 
+        onDeleteEducationSet={deleteEducationSet} 
+        educationsSets={educationSets.data || []} 
+        onCreateEducationSet={createEducationSet}
+      />
     </Box>
   );  
 };
 
 const mapDispatchToProps = {
   addUserData: userActions.addUserData,
+  setAlert: alertActions.setAutoCleaningAlert
 };
 
 export default connect(null, mapDispatchToProps)(EducationSetsPage);

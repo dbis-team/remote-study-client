@@ -9,26 +9,14 @@ import { Subject } from 'components/Subject';
 import { IEducationSet } from 'types/entities/educationSet/IEducationSet';
 import { useStyles } from './styles';
 
-import { educationSetApiDomainService } from 'services/api/domains/EducationSetApiService';
 
 export interface IEducationSetProps {
   educationSet: IEducationSet;
+  onDelete: (id: string) => Promise<void>;
 }
 
-export const EducationSet: React.FC<IEducationSetProps> = ({ educationSet }) => {
+export const EducationSet: React.FC<IEducationSetProps> = ({ educationSet, onDelete }) => {
   const classes = useStyles();
-  
-  
-  const handleDelete = async (id:string) => {
-    const result = await educationSetApiDomainService.deleteEducationSet(id);
-    result
-      .rightSideEffect(() => {
-        console.info('Right');
-      })
-      .leftSideEffect(() => {
-        console.info('Left');
-      });
-  }
 
   return (
     <Box display="block" className={classes.rootBox} pt={12} pl={10}>
@@ -43,7 +31,7 @@ export const EducationSet: React.FC<IEducationSetProps> = ({ educationSet }) => 
             </Typography>
           </Box>
           <Box p={1}>
-            <Button size="large" variant="contained" color="primary">
+            <Button size="medium" variant="contained" color="primary">
               Add subject
             </Button>
           </Box>
@@ -57,10 +45,10 @@ export const EducationSet: React.FC<IEducationSetProps> = ({ educationSet }) => 
         <Divider light />
         <Box pt={1} pr={2} display="flex" justifyContent="flex-end">
           <Button 
-            size="small" 
+            size="medium" 
             variant="contained" 
             color="secondary"
-            onClick={() => handleDelete(educationSet.Id)}
+            onClick={() => onDelete(educationSet.Id)}
           >
                 Delete education set
           </Button>

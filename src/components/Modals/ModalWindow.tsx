@@ -11,6 +11,8 @@ import {
 } from '@material-ui/core';
 import Box from '@material-ui/core/Box/Box';
 
+import { useStyles } from './styles';
+
 export interface ModalWindowPropsInterface {
   isOpen: boolean;
   handleClose?: () => void | Promise<void>;
@@ -29,6 +31,8 @@ export interface DialogTitleProps {
 
 const DialogTitle = (props: DialogTitleProps) => {
   const { children, onClose } = props;
+  const classes = useStyles();
+
   return (
     <MuiDialogTitle disableTypography>
       <Box display="flex">
@@ -36,7 +40,7 @@ const DialogTitle = (props: DialogTitleProps) => {
           <Typography variant="h6">{children}</Typography>
         </Box>
         {onClose ? (
-          <IconButton aria-label="close" onClick={onClose}>
+          <IconButton className={classes.closeIcon} aria-label="close" onClick={onClose}>
             <Close />
           </IconButton>
         ) : null}

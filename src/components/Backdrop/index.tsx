@@ -28,4 +28,4 @@ const SimpleBackdrop: React.FC<IBackdropProps> = (props) => {
   );
 };
 
-export default SimpleBackdrop;
+export {SimpleBackdrop};

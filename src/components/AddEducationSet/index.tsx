@@ -3,9 +3,14 @@ import Button from '@material-ui/core/Button';
 import { Box } from '@material-ui/core';
 import { useStyles } from './styles';
 
-import AddEducationSetModal from './AddEducationSetModal';
+import { AddEducationSetModal } from './AddEducationSetModal';
+import { ICreateEducationSet } from 'types/entities/educationSet/ICreateEducationSet';
 
-export const AddEducationSet: React.FunctionComponent = () => {
+export interface IProps {
+  onCreateEducationSet: (payload: ICreateEducationSet) => Promise<void>;
+}
+
+export const AddEducationSet: React.FC<IProps> = ({ onCreateEducationSet }) => {
   const classes = useStyles();
 
   const [showModal, setShowModal] = React.useState(false);
@@ -20,7 +25,11 @@ export const AddEducationSet: React.FunctionComponent = () => {
       >
         Add education set
       </Button>
-      <AddEducationSetModal isOpen={showModal} handleClose={() => setShowModal(false)} />
+      <AddEducationSetModal 
+        isOpen={showModal} 
+        handleClose={() => setShowModal(false)} 
+        onCreateEducationSet={onCreateEducationSet}
+      />
     </Box>
   );
 };

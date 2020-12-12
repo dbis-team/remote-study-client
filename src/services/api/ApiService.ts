@@ -30,27 +30,39 @@ class ApiService {
   }
 
   private queryParamsToQueryString(queryParams: QueryParams): string {
+    console.info(queryParams)
     return '?' + Object.keys(queryParams)
-      .map((queryParam) => `${queryParam}=${queryParams[queryParam]}`)
-      .join();
+      .map((queryParam) => `${queryParam}=${encodeURIComponent(queryParams[queryParam])}`)
+      .join('&');
+  }
+
+  private async parseJson(res: Response): Promise<any> {
+    try {
+      return await res.json();
+    } catch (error) {
+      return res.body;      
+    }
   }
 
   private async callJsonApi<T>(path: string, options: IApiCallOptions): Promise<Either<IApiError, T>> {
-    const apiPath = `${this.apiUrl}${path}${options.queryParams ? this.queryParamsToQueryString(options.queryParams) : ''}`;
-    
-    const headers = { 'Content-Type': 'application/json' };
+    try {
+      const apiPath = `${this.apiUrl}${path}${options.queryParams ? this.queryParamsToQueryString(options.queryParams) : ''}`;
+      const headers = { 'Content-Type': 'application/json' };
 
-    const response = await fetch(apiPath, {
-      method: options.method,
-      headers: options.headers ? { ...headers, ...options.headers } : headers,
-      body: JSON.stringify(options.body),
-    });
+      const response = await fetch(apiPath, {
+        method: options.method,
+        headers: options.headers ? { ...headers, ...options.headers } : headers,
+        body: JSON.stringify(options.body),
+      });
 
-    const body = await response.json();
+      const body = await this.parseJson(response);
 
-    return response.ok 
-      ? Either.right(body as T) 
-      : Either.left(body as IApiError);
+      return response.ok 
+        ? Either.right(body as T) 
+        : Either.left(body as IApiError);
+    } catch (error) {
+      return Either.left(error);
+    }
   }
 
   getJson<T>(path: string, options?: PickedOptions): Promise<Either<IApiError, T>> {

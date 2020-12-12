@@ -1,5 +1,7 @@
+import { UserRole } from '../../enums/userRole';
 export interface IRegistrationPayload {
   email: string;
   password: string;
-  userName: string;  
+  userName: string; 
+  role: UserRole 
 }

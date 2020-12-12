@@ -5,6 +5,7 @@ import Box from '@material-ui/core/Box';
 
 import LoginForm from 'components/LoginForm';
 import { actions as authActions } from 'store/reducers/isUserAuthenticated';
+import { actions as loadingActions } from 'store/reducers/isLoading';
 
 import { ACCESS_TOKEN } from 'constants/localStoreKeys';
 import { LocalStoreService } from 'services/LocalStoreService';
@@ -14,18 +15,19 @@ import { actions as alertActions } from 'store/sagas/alert/sagaActions';
 
 interface ILoginPageProps {
   setUserAuthenticated: typeof authActions.setUserAuthenticated;
-  setAlert: typeof alertActions.setAutoCleaningAlert
+  setAlert: typeof alertActions.setAutoCleaningAlert;
+  setIsLoading: typeof loadingActions.setIsLoading;
 }
 
-const LoginPage: React.FC<ILoginPageProps> = ({ setUserAuthenticated, setAlert }) => {
+const LoginPage: React.FC<ILoginPageProps> = ({ setUserAuthenticated, setAlert, setIsLoading }) => {
   const location = useLocation();
 
   const onSubmit = async (loginPayload: ILoginPayload) => {
+    setIsLoading(true);
     const loginRes = await userApiDomainService.login(loginPayload);
 
     loginRes
       .rightSideEffect((data) => {
-        console.info('Right');
         LocalStoreService.getInstance().add(ACCESS_TOKEN, data.access_token);
         setUserAuthenticated(true);
       })
@@ -36,6 +38,8 @@ const LoginPage: React.FC<ILoginPageProps> = ({ setUserAuthenticated, setAlert }
           severity: 'error',
         });
       });
+      
+    setIsLoading(false);
   };
 
   React.useEffect(() => {
@@ -66,6 +70,7 @@ const LoginPage: React.FC<ILoginPageProps> = ({ setUserAuthenticated, setAlert }
 
 const mapDispatchToProps = {
   setUserAuthenticated: authActions.setUserAuthenticated,
+  setIsLoading: loadingActions.setIsLoading,
   setAlert: alertActions.setAutoCleaningAlert,
 };
 

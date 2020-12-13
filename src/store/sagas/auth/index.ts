@@ -15,9 +15,25 @@ import { ILoginPayload } from 'types/entities/user/ILoginPayload';
 function* checkAuthWorker() {
   try {
     const token = LocalStoreService.getInstance().get(ACCESS_TOKEN);
-    yield put(isUserAuthenticatedActions.setUserAuthenticated(!!token));
+    if (!token) {
+      return;
+    }
+
+    const user = yield call(userApiDomainService.getMe);
+    if (user.isLeft()) {
+      throw user.getLeft();
+    }
+
+    yield put(isUserAuthenticatedActions.setUserAuthenticated(true));
   } catch (error) {
-    console.warn('User is not authenticated');
+    LocalStoreService.getInstance().remove(ACCESS_TOKEN);
+    yield put(isUserAuthenticatedActions.setUserAuthenticated(false));
+
+    yield put(alertActions.setAutoCleaningAlert({
+      open: true,
+      severity: 'error',
+      feedbackMessage: 'Your session expired'
+    }));
   }
 }
 

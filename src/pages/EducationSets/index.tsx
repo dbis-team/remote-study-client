@@ -7,8 +7,8 @@ import { AdminEducationSet } from 'components/AdminEducationSet';
 
 import { educationSetApiDomainService } from 'services/api/domains/EducationSetApiService';
 import { actions as alertActions } from 'store/sagas/alert/sagaActions';
-import { useLoadData } from 'hooks/loadDataHook';
 import { ICreateEducationSet } from 'types/entities/educationSet/ICreateEducationSet';
+import { IEducationSet } from 'types/entities/educationSet/IEducationSet';
 
 export interface IEducationSetsPageProps {
   addUserData: typeof userActions.addUserData;
@@ -16,21 +16,26 @@ export interface IEducationSetsPageProps {
 }
 
 const EducationSetsPage: React.FC<IEducationSetsPageProps> = ({ setAlert }) => {
-  const educationSets = useLoadData({
-    task: educationSetApiDomainService.getEducationSet(),
-    onError: (_) => {
-      setAlert({
-        open: true,
-        feedbackMessage: 'Get education sets error',
-        severity: 'error',
+  const [educationSets, setEducationSets] = React.useState<IEducationSet[]>([]);
+
+  const fetchEducationSets = async () => {
+    const res = await educationSetApiDomainService.getEducationSet();
+
+    res
+      .rightSideEffect(newESets => setEducationSets(newESets))
+      .leftSideEffect((_) => {
+        setAlert({
+          open: true,
+          feedbackMessage: 'Get education sets error',
+          severity: 'error',
+        })
       })
-    }
-  });
+  }
 
   const deleteEducationSet = async (id: string) => {
     const res = await educationSetApiDomainService.deleteEducationSet(id);
     res
-      .rightSideEffect(() => educationSets.refetch())
+      .rightSideEffect(fetchEducationSets)
       .leftSideEffect(() => {
         setAlert({
           open: true,
@@ -43,7 +48,7 @@ const EducationSetsPage: React.FC<IEducationSetsPageProps> = ({ setAlert }) => {
   const createEducationSet = async (payload: ICreateEducationSet) => {
     const res = await educationSetApiDomainService.createEducationSet(payload);
     res
-      .rightSideEffect(() => educationSets.refetch())
+      .rightSideEffect(fetchEducationSets)
       .leftSideEffect(() => {
         setAlert({
           open: true,
@@ -57,7 +62,7 @@ const EducationSetsPage: React.FC<IEducationSetsPageProps> = ({ setAlert }) => {
     <Box>
       <AdminEducationSet 
         onDeleteEducationSet={deleteEducationSet} 
-        educationsSets={educationSets.data || []} 
+        educationsSets={educationSets} 
         onCreateEducationSet={createEducationSet}
       />
     </Box>

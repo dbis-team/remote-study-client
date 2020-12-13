@@ -10,6 +10,10 @@ class SubjectApiDomainService {
   getSubjectsByEducationSet(educationSetId: string) {
     return ApiService.getInstance().getJson<ISubject[]>(`/Subject/EducationSet/${educationSetId}`);
   }
+
+  deleteSubject(id: string) {
+    return ApiService.getInstance().deleteJson(`/Subject/delete/${id}`);
+  }
 }
 
 const subjectApiDomainService = new SubjectApiDomainService();

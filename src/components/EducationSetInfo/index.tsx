@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Box, Typography, Link, Divider, Button } from '@material-ui/core';
+import { Box, Typography, Link, Divider, Button, IconButton } from '@material-ui/core';
 import Add from '@material-ui/icons/Add';
+import Delete from '@material-ui/icons/Delete';
 
 import { IEducationSet } from 'types/entities/educationSet/IEducationSet';
 import { ISubject } from 'types/entities/subject/ISubject';
@@ -9,6 +10,8 @@ import { subjectApiDomainService } from 'services/api/domains/SubjectApiService'
 
 import { actions as alertActions } from 'store/sagas/alert/sagaActions';
 import { actions as isLoadingActions } from 'store/reducers/isLoading';
+import AddSubjectModal from './AddSubjectModal';
+import { ICreateSubject } from 'types/entities/subject/ICreateSubject';
 
 export interface IProps {
   educationSet: IEducationSet;
@@ -22,9 +25,10 @@ const EducationSet: React.FC<IProps> = ({
   setIsLoading
 }) => {
   const [subjects, setSubjects] = React.useState<ISubject[]>([]);
+  const [showModal, setShowModal] = React.useState(false);
 
-  React.useEffect(() => {
-    (async () => {
+  const fethcSubjects = React.useCallback(
+    async () => {
       setIsLoading(true);
       const subjectsEither = await subjectApiDomainService.getSubjectsByEducationSet(educationSet.Id);
 
@@ -38,9 +42,49 @@ const EducationSet: React.FC<IProps> = ({
           })
         })
 
-      setIsLoading(false);    
-    })()
-  }, [setIsLoading, setAlert, educationSet.Id])
+      setIsLoading(false);
+    },
+    [setIsLoading, setAlert, educationSet.Id]
+  );
+
+  const createSubject = async (payload: ICreateSubject) => {
+    setIsLoading(true);
+
+    const res = await subjectApiDomainService.createSubject(payload);
+
+    res
+      .rightSideEffect(fethcSubjects)
+      .leftSideEffect(() => {
+        setAlert({
+          open: true,
+          severity: 'error',
+          feedbackMessage: 'Error during subject creating'
+        })
+      });
+
+    setIsLoading(false);
+  };
+
+  const onDeleteSubject = async (id: string) => {
+    setIsLoading(true);
+
+    const res = await subjectApiDomainService.deleteSubject(id);
+    res
+      .rightSideEffect(fethcSubjects)
+      .leftSideEffect(() => {
+        setAlert({
+          open: true,
+          severity: 'error',
+          feedbackMessage: 'Error during subject deleting'
+        })
+      });
+
+    setIsLoading(false);
+  };
+
+  React.useEffect(() => {
+    fethcSubjects();
+  }, [fethcSubjects])
 
   return (
     <Box p={8}>
@@ -52,7 +96,7 @@ const EducationSet: React.FC<IProps> = ({
       </Box>
       <Box pb={2}>
         <Button 
-          onClick={() => console.info('qweqwe')}
+          onClick={() => setShowModal(true)}
           startIcon={<Add />}
           color="primary"
           variant="contained"
@@ -68,17 +112,30 @@ const EducationSet: React.FC<IProps> = ({
           </Typography>
           <Box pt={2}>
             {subjects.map(subject => (
-              <Box pl={2}>
-                <Link variant="h6" component="button">{subject.Name}</Link>
-                <Typography variant="subtitle1">
-                  {subject.Description}
-                </Typography>
+              <Box key={subject.Id} pl={2}>
+                <Box display="flex" alignItems="center" justifyContent="space-between">
+                  <Box>
+                    <Link variant="h6" component="button">{subject.Name}</Link>
+                    <Typography variant="subtitle1">
+                      {subject.Description}
+                    </Typography>
+                  </Box>
+                  <IconButton onClick={() => onDeleteSubject(subject.Id)}>
+                    <Delete />
+                  </IconButton>
+                </Box>
                 <Divider />
               </Box>
             ))}
           </Box>
         </Box>
       }
+      <AddSubjectModal
+        isOpen={showModal}
+        handleClose={() => setShowModal(false)}
+        educationSetId={educationSet.Id}
+        onAddSubject={createSubject}
+      />
     </Box>
   );
 };

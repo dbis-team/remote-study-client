@@ -14,6 +14,7 @@ import { ILoginPayload } from 'types/entities/user/ILoginPayload';
 
 function* checkAuthWorker() {
   try {
+    yield put(isLoadingActions.setIsLoading(true));
     const token = LocalStoreService.getInstance().get(ACCESS_TOKEN);
     if (!token) {
       return;
@@ -24,6 +25,7 @@ function* checkAuthWorker() {
       throw user.getLeft();
     }
 
+    yield put(userActions.addUserData(user.getRight()[0]));
     yield put(isUserAuthenticatedActions.setUserAuthenticated(true));
   } catch (error) {
     LocalStoreService.getInstance().remove(ACCESS_TOKEN);
@@ -34,6 +36,8 @@ function* checkAuthWorker() {
       severity: 'error',
       feedbackMessage: 'Your session expired'
     }));
+  } finally {
+    yield put(isLoadingActions.setIsLoading(false));
   }
 }
 

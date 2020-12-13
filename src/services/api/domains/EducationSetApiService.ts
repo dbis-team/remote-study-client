@@ -4,15 +4,15 @@ import { ApiService } from '../ApiService';
 
 class EducationSetApiDomainService {
   createEducationSet(payload: ICreateEducationSet) {
-    return ApiService.getInstance().postJson<IEducationSet>('/EducationSetContoller/add', payload);
+    return ApiService.getInstance().postJson<IEducationSet>('/EducationSet/add', payload);
   };
 
   getEducationSet() {
-    return ApiService.getInstance().getJson<IEducationSet[]>('/EducationSetContoller');
+    return ApiService.getInstance().getJson<IEducationSet[]>('/EducationSet');
   };
 
   deleteEducationSet(id:string) {
-    return ApiService.getInstance().deleteJson<IEducationSet>(`/EducationSetContoller/delete/${id}`)
+    return ApiService.getInstance().deleteJson<IEducationSet>(`/EducationSet/delete/${id}`)
   };
 }
 

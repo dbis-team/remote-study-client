@@ -4,42 +4,23 @@ import { useLocation } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
 
 import LoginForm from 'components/LoginForm';
-import { actions as authActions } from 'store/reducers/isUserAuthenticated';
 import { actions as loadingActions } from 'store/reducers/isLoading';
+import { actions as authActions } from 'store/sagas/auth/sagaActions';
 
-import { ACCESS_TOKEN } from 'constants/localStoreKeys';
-import { LocalStoreService } from 'services/LocalStoreService';
-import { userApiDomainService } from 'services/api/domains/UserApiService';
 import { ILoginPayload } from 'types/entities/user/ILoginPayload';
 import { actions as alertActions } from 'store/sagas/alert/sagaActions';
 
 interface ILoginPageProps {
-  setUserAuthenticated: typeof authActions.setUserAuthenticated;
+  login: typeof authActions.login;
   setAlert: typeof alertActions.setAutoCleaningAlert;
   setIsLoading: typeof loadingActions.setIsLoading;
 }
 
-const LoginPage: React.FC<ILoginPageProps> = ({ setUserAuthenticated, setAlert, setIsLoading }) => {
+const LoginPage: React.FC<ILoginPageProps> = ({ login, setAlert, setIsLoading }) => {
   const location = useLocation();
 
   const onSubmit = async (loginPayload: ILoginPayload) => {
-    setIsLoading(true);
-    const loginRes = await userApiDomainService.login(loginPayload);
-
-    loginRes
-      .rightSideEffect((data) => {
-        LocalStoreService.getInstance().add(ACCESS_TOKEN, data.access_token);
-        setUserAuthenticated(true);
-      })
-      .leftSideEffect(() => {
-        setAlert({
-          open: true,
-          feedbackMessage: 'Login error',
-          severity: 'error',
-        });
-      });
-      
-    setIsLoading(false);
+    login(loginPayload);
   };
 
   React.useEffect(() => {
@@ -69,7 +50,7 @@ const LoginPage: React.FC<ILoginPageProps> = ({ setUserAuthenticated, setAlert, 
 };
 
 const mapDispatchToProps = {
-  setUserAuthenticated: authActions.setUserAuthenticated,
+  login: authActions.login,
   setIsLoading: loadingActions.setIsLoading,
   setAlert: alertActions.setAutoCleaningAlert,
 };

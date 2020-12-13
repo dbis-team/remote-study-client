@@ -7,11 +7,13 @@ type ApiMethods = 'POST' | 'GET' | 'PUT' | 'PATCH' | 'DELETE';
 interface IApiCallOptions {
   method: ApiMethods; 
   body?: any; 
-  headers?: Headers; 
+  headers?: {[header: string]: string}; 
   queryParams?: QueryParams
 }
 
-type PickedOptions = Pick<IApiCallOptions, 'headers' | 'queryParams'>;
+type PickedOptions = Pick<IApiCallOptions, 'queryParams'> & {
+  headers?: {[header: string]: string};
+};
 
 class ApiService {
   static instance: ApiService;

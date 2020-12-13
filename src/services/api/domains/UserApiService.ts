@@ -5,6 +5,8 @@ import { IRegistrationPayload } from 'types/entities/user/IRegistrationPayload';
 import { IConfirmEmailPayload } from 'types/entities/user/IConfirmEmailPayload';
 import { ApiService } from '../ApiService';
 
+import { getBerearToken } from 'helpers/getBerearToken';
+
 class UserApiDomainService {
   getUsers() {
     return ApiService.getInstance().getJson<IUserData[]>('/User');
@@ -21,6 +23,14 @@ class UserApiDomainService {
   confirmEmail({ userId, code }: IConfirmEmailPayload) {
     return ApiService.getInstance().getJson<any>('/User/ConfirmEmail', {
       queryParams: { userId, code }
+    });
+  }
+
+  getMe() {
+    return ApiService.getInstance().getJson<[IUserData]>('/User/me', {
+      headers: {
+        Authorization: getBerearToken()
+      }
     });
   }
 }

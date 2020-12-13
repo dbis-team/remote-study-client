@@ -10,16 +10,19 @@ export interface IAdminEducationSetProps {
   educationsSets: IEducationSet[];
   onDeleteEducationSet: (id: string) => Promise<void>;
   onCreateEducationSet: (payload: ICreateEducationSet) => Promise<void>;
+  onEducationsetClick: (id: string) => Promise<void> | void;
 }
 
 export const AdminEducationSet: React.FC<IAdminEducationSetProps> = ({ 
   educationsSets,
   onDeleteEducationSet,
-  onCreateEducationSet
+  onCreateEducationSet,
+  onEducationsetClick
 }) => (
   <Box>
     {educationsSets.map((educationSet) => 
       <EducationSet 
+        onEducationsetClick={onEducationsetClick}
         onDelete={onDeleteEducationSet} 
         educationSet={educationSet} 
         key={educationSet.Id}

@@ -22,15 +22,13 @@ RUN npm run build && rm /app/.env
 #
 FROM nginx:stable-alpine
 RUN apk add gettext
-ARG PORT
-ENV PORT=$PORT
 
 COPY --from=build /app/build /usr/share/nginx/html
 COPY ./nginx.template /etc/nginx/nginx.template
 
-RUN envsubst '$PORT' < /etc/nginx/nginx.template > /etc/nginx/nginx.conf
-RUN cat /etc/nginx/nginx.conf
+COPY ./start-nginx.sh ./start-nginx.sh
 
+ENTRYPOINT ["sh", "./start-nginx.sh"]
 CMD ["nginx", "-g", "daemon off;"]
 
 EXPOSE 80

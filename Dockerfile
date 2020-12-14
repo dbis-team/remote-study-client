@@ -11,8 +11,9 @@ RUN npm i
 
 COPY ./src /app/src
 COPY ./public /app/public 
-COPY ./.env /app/
 
+RUN printf "REACT_APP_STORE_SERVICE_URL=$REACT_APP_STORE_SERVICE_URL\nREACT_APP_CORE_API_URL=$REACT_APP_CORE_API_URL\n"
+RUN printf "REACT_APP_STORE_SERVICE_URL=$REACT_APP_STORE_SERVICE_URL\nREACT_APP_CORE_API_URL=$REACT_APP_CORE_API_URL\n" | tee .env
 RUN npm run build && rm /app/.env
 
 #

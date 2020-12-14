@@ -16,7 +16,7 @@ http {
     '"$http_referer" "$http_user_agent"';
   
   server {
-    listen 80;
+    listen ${PORT:-80};
 
     access_log /var/log/nginx/access.log compression;
 

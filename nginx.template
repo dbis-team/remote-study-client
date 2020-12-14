@@ -1,8 +1,6 @@
 server {
   listen ${PORT:-80};
 
-  access_log /var/log/nginx/access.log compression;
-
   root /usr/share/nginx/html;
 
   index index.html index.html;

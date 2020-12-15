@@ -18,7 +18,7 @@ export interface IAuthenticatedAppTemplateProps {
 
 const AuthenticatedAppTemplate: React.FC<IAuthenticatedAppTemplateProps> = ({ role }) => {
   const [showSidebar, setShowSidebar] = React.useState(false);
-  console.info(role)
+
   const sidebarList = role === UserRole.Student 
     ? studentSideBarList
     : role === UserRole.Teacher

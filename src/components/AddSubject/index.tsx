@@ -4,6 +4,10 @@ import { Form, Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 
 import { ICreateSubject } from 'types/entities/subject/ICreateSubject';
+import { DropZone } from '../DropZone';
+import { FileComponent } from '../File';
+import { useStyles } from './styles';
+// import { LearningMaterialsService } from 'services/api/domains/LearningMaterialsService';
 
 type Values = Omit<ICreateSubject, 'educationSetId'>;
 
@@ -18,9 +22,23 @@ const validationSchema = Yup.object().shape({
 });
 
 const AddSubjectForm: React.FC<IAddSubjectProps> = ({ onAddSubject, educationSetId }) => {
+  const classes = useStyles();
+  const [selectedFiles, setSelectedFiles] = React.useState<File[]>([]);
+
   const handleSubmit = async (values: Values, helper: FormikHelpers<Values>) => {
+    // const materialsEither = await LearningMaterialsService.getInstanse().storeLearningMaterials(selectedFiles);
+    // console.info(materialsEither);
+    // console.info(materialsEither.getRight())
     await onAddSubject({ ...values, educationSetId });
     helper.resetForm();
+  };
+
+  const deleteFile = (file: File) => {
+    setSelectedFiles(prevArray => prevArray.filter(prevFile => prevFile !== file));
+  };
+
+  const addFiles = (files: File[]) => {
+    setSelectedFiles(prevArr => [...prevArr, ...files]);
   };
 
   return (
@@ -36,6 +54,7 @@ const AddSubjectForm: React.FC<IAddSubjectProps> = ({ onAddSubject, educationSet
         <Form>
           <Box pt={3}>
             <TextField 
+              className={classes.textField}
               variant="outlined"
               placeholder="Name"
               name="name"
@@ -48,15 +67,27 @@ const AddSubjectForm: React.FC<IAddSubjectProps> = ({ onAddSubject, educationSet
           </Box>
           <Box pt={3}>
             <TextField 
+              className={classes.textField}
               variant="outlined"
               placeholder="Description"
               name="description"
               value={values.description}
               onChange={handleChange}
               onBlur={handleBlur}
+              multiline
+              rows={4}
               error={touched.description && !!errors.description}
               helperText={touched.description && errors.description}
             />
+          </Box>
+          <Box pt={3}>
+            <DropZone onAddFiles={addFiles} />
+            <Box>
+              {selectedFiles.map(file => <FileComponent 
+                file={file} 
+                onFileRemove={deleteFile} />
+              )}
+            </Box>
           </Box>
           <Box pt={2}>
             <Button

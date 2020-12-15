@@ -26,6 +26,7 @@ const AddSubjectModal: React.FC<IProps> = ({
       isOpen={isOpen} 
       handleClose={handleClose} 
       title="Add subject"
+      maxWidth='xl'
     >
       <AddSubject educationSetId={educationSetId} onAddSubject={addSubject} />
     </ModalWindow>

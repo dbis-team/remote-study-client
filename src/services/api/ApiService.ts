@@ -1,10 +1,10 @@
 import { Either } from 'helpers/either';
 import { IApiError } from 'types/interfaces/IApiError';
 
-type QueryParams = {[queryParam: string]: string};
-type ApiMethods = 'POST' | 'GET' | 'PUT' | 'PATCH' | 'DELETE';
+export type QueryParams = {[queryParam: string]: string};
+export type ApiMethods = 'POST' | 'GET' | 'PUT' | 'PATCH' | 'DELETE';
 
-interface IApiCallOptions {
+export interface IApiCallOptions {
   method: ApiMethods; 
   body?: any; 
   headers?: {[header: string]: string}; 
@@ -25,20 +25,20 @@ class ApiService {
     return ApiService.instance;
   }
 
-  private apiUrl: string;
+  protected apiUrl: string;
 
   constructor(apiUrl?: string) {
     this.apiUrl = apiUrl || process.env.REACT_APP_CORE_API_URL || 'No url';
   }
 
-  private queryParamsToQueryString(queryParams: QueryParams): string {
+  protected queryParamsToQueryString(queryParams: QueryParams): string {
     console.info(queryParams)
     return '?' + Object.keys(queryParams)
       .map((queryParam) => `${queryParam}=${encodeURIComponent(queryParams[queryParam])}`)
       .join('&');
   }
 
-  private async parseJson(res: Response): Promise<any> {
+  protected async parseJson(res: Response): Promise<any> {
     try {
       return await res.json();
     } catch (error) {
@@ -46,7 +46,7 @@ class ApiService {
     }
   }
 
-  private async callJsonApi<T>(path: string, options: IApiCallOptions): Promise<Either<IApiError, T>> {
+  protected async callJsonApi<T>(path: string, options: IApiCallOptions): Promise<Either<IApiError, T>> {
     try {
       const apiPath = `${this.apiUrl}${path}${options.queryParams ? this.queryParamsToQueryString(options.queryParams) : ''}`;
       const headers = { 'Content-Type': 'application/json' };

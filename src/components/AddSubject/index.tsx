@@ -7,12 +7,11 @@ import { ICreateSubject } from 'types/entities/subject/ICreateSubject';
 import { DropZone } from '../DropZone';
 import { FileComponent } from '../File';
 import { useStyles } from './styles';
-// import { LearningMaterialsService } from 'services/api/domains/LearningMaterialsService';
 
 type Values = Omit<ICreateSubject, 'educationSetId'>;
 
 export interface IAddSubjectProps {
-  onAddSubject: (payload: ICreateSubject) => Promise<void> | void;
+  onAddSubject: (payload: ICreateSubject, files?: File[]) => Promise<void> | void;
   educationSetId: string;
 }
 
@@ -26,10 +25,7 @@ const AddSubjectForm: React.FC<IAddSubjectProps> = ({ onAddSubject, educationSet
   const [selectedFiles, setSelectedFiles] = React.useState<File[]>([]);
 
   const handleSubmit = async (values: Values, helper: FormikHelpers<Values>) => {
-    // const materialsEither = await LearningMaterialsService.getInstanse().storeLearningMaterials(selectedFiles);
-    // console.info(materialsEither);
-    // console.info(materialsEither.getRight())
-    await onAddSubject({ ...values, educationSetId });
+    await onAddSubject({ ...values, educationSetId }, [...selectedFiles]);
     helper.resetForm();
   };
 

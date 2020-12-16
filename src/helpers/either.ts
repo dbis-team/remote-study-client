@@ -29,6 +29,13 @@ class Either<L, R> {
     return new Either<T, R>(EitherType.Left, value);
   }
 
+  static mergeToOne<L1, R1, L2, R2>(either1: Either<L1, R1>, either2: Either<L2, R2>): Either<L1 | L2, [R1, R2]> {
+    if (either1.isLeft() || either2.isLeft()) {
+      return Either.left<L1 | L2, [R1, R2]>(either1.getLeft() as L1 || either2.getLeft() as L2);
+    }
+    return Either.right([either1.getRight() as R1, either2.getRight() as R2]);
+  }
+
   public isLeft(): boolean {
     return this.type === EitherType.Left;
   }

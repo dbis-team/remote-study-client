@@ -4,7 +4,7 @@ import { ApiService } from '../ApiService';
 
 class SubjectApiDomainService {
   createSubject(payload: ICreateSubject) {
-    return ApiService.getInstance().postJson<any>('/Subject/add', payload);
+    return ApiService.getInstance().postJson<ISubject>('/Subject/add', payload);
   }
 
   getSubjectsByEducationSet(educationSetId: string) {

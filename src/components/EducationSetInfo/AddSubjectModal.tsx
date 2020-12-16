@@ -14,8 +14,8 @@ const AddSubjectModal: React.FC<IProps> = ({
   educationSetId,
   onAddSubject
 }) => {
-  const addSubject = async (payload: ICreateSubject) => {
-    await onAddSubject(payload);
+  const addSubject = async (payload: ICreateSubject, files?: File[]) => {
+    await onAddSubject(payload, files);
     if (handleClose) {
       handleClose();
     }

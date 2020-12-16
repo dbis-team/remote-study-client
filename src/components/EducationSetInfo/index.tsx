@@ -7,11 +7,15 @@ import Delete from '@material-ui/icons/Delete';
 import { IEducationSet } from 'types/entities/educationSet/IEducationSet';
 import { ISubject } from 'types/entities/subject/ISubject';
 import { subjectApiDomainService } from 'services/api/domains/SubjectApiService';
+import { LearningMaterialsService } from 'services/api/domains/LearningMaterialsService';
+import { subjectFileApiDomainService } from 'services/api/domains/SubjectFileApiService';
 
 import { actions as alertActions } from 'store/sagas/alert/sagaActions';
 import { actions as isLoadingActions } from 'store/reducers/isLoading';
 import AddSubjectModal from './AddSubjectModal';
 import { ICreateSubject } from 'types/entities/subject/ICreateSubject';
+import { Either } from 'helpers/either';
+import { ILearningMaterial } from 'types/entities/learningMaterials/ILearningMaterial';
 
 export interface IProps {
   educationSet: IEducationSet;
@@ -47,10 +51,26 @@ const EducationSet: React.FC<IProps> = ({
     [setIsLoading, setAlert, educationSet.Id]
   );
 
-  const createSubject = async (payload: ICreateSubject) => {
+  const createSubject = async (payload: ICreateSubject, files?: File[]) => {
     setIsLoading(true);
+    console.info(payload);
+    console.info(files);
 
-    const res = await subjectApiDomainService.createSubject(payload);
+    const [learningMaterials, subjectEither] = await Promise.all([
+      files && !!files.length
+        ? await LearningMaterialsService.getInstanse().storeLearningMaterials(files)
+        : await Promise.resolve(Either.right<Error, ILearningMaterial[]>([])),
+      
+      subjectApiDomainService.createSubject(payload)
+    ]);
+
+    const res = await Either.mergeToOne(learningMaterials, subjectEither)
+      .mapRightAsync(([materials, subject]) => Promise.all(
+        materials.map(material => subjectFileApiDomainService.addSubjectFile({ 
+          subjectId: subject.Id,
+          fileId: material._id
+        }))
+      ));
 
     res
       .rightSideEffect(fethcSubjects)

@@ -12,12 +12,12 @@ class LearningMaterialsService {
     return LearningMaterialsService.instance;
   }
 
-  storeLearningMaterials(files: File[]): Promise<Either<any, ILearningMaterial>> {
+  storeLearningMaterials(files: File[]): Promise<Either<any, ILearningMaterial[]>> {
     const formData = new FormData()
     files.forEach(file => {
       formData.append(file.name, file);
     })
-    return StorageApiService.getInstance().sendFormData<ILearningMaterial>(
+    return StorageApiService.getInstance().sendFormData<ILearningMaterial[]>(
       '/learning-materials', 
       formData, 
       { method: 'POST' }

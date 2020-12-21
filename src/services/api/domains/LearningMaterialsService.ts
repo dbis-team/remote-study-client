@@ -23,6 +23,15 @@ class LearningMaterialsService {
       { method: 'POST' }
     );
   }
+
+  async getLearningMaterials(ids: string[]): Promise<Either<any, ILearningMaterial[]>> {
+    const query = ids.map(id => `ids=${id}`).join('&');
+    const data = await StorageApiService.getInstance().getJson<ILearningMaterial[]>(
+      `/learning-materials?${query}`
+    );
+
+    return (data as Either<any, any>).mapRight(({ payload }) => payload as ILearningMaterial[]);
+  }
 }
 
 export { LearningMaterialsService };

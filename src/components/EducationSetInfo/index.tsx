@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Box, Typography, Link, Divider, Button, IconButton } from '@material-ui/core';
+import { Box, Typography, Button } from '@material-ui/core';
 import Add from '@material-ui/icons/Add';
-import Delete from '@material-ui/icons/Delete';
 
+import AdminSubject from 'components/AdminSubject';
 import { IEducationSet } from 'types/entities/educationSet/IEducationSet';
 import { ISubject } from 'types/entities/subject/ISubject';
 import { subjectApiDomainService } from 'services/api/domains/SubjectApiService';
@@ -68,7 +68,7 @@ const EducationSet: React.FC<IProps> = ({
       .mapRightAsync(([materials, subject]) => Promise.all(
         materials.map(material => subjectFileApiDomainService.addSubjectFile({ 
           subjectId: subject.Id,
-          fileId: material._id
+          id: material._id
         }))
       ));
 
@@ -132,20 +132,11 @@ const EducationSet: React.FC<IProps> = ({
           </Typography>
           <Box pt={2}>
             {subjects.map(subject => (
-              <Box key={subject.Id} pl={2}>
-                <Box display="flex" alignItems="center" justifyContent="space-between">
-                  <Box>
-                    <Link variant="h6" component="button">{subject.Name}</Link>
-                    <Typography variant="subtitle1">
-                      {subject.Description}
-                    </Typography>
-                  </Box>
-                  <IconButton onClick={() => onDeleteSubject(subject.Id)}>
-                    <Delete />
-                  </IconButton>
-                </Box>
-                <Divider />
-              </Box>
+              <AdminSubject 
+                key={subject.Id} 
+                subject={subject} 
+                onDeleteSubject={onDeleteSubject} 
+              />
             ))}
           </Box>
         </Box>

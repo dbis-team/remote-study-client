@@ -1,4 +1,4 @@
 export interface ICreateSubjectFile {
-  fileId: string;
+  id: string;
   subjectId: string;
 }
